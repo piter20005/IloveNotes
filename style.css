@@ -1,0 +1,147 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --nav-color: #AAEAFE;
+    --body-color: #FAFAFA;
+}
+
+body {
+    background-color: var(--body-color);
+    font-family: 'Montserrat', sans-serif;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-weight: 300;
+    margin: .5rem;
+}
+
+select {
+    margin: 0 1.5rem;
+}
+
+.nav,
+.nav-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.nav {
+    width: 100%;
+    height: 10%;
+    background-color: var(--nav-color);
+    justify-content: space-between;
+    padding: 1.5rem;
+}
+
+
+.profile-img {
+    background: var(--body-color);
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 10rem;
+}
+
+.selectors {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.notes-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-gap: 40px;
+    margin: 30px 0px;
+    justify-content: center;
+}
+
+.notes {
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    border-radius: 17px;
+    -webkit-box-shadow: -2px -2px 28px 0px rgba(0, 0, 0, 0.13);
+    -moz-box-shadow: -2px -2px 28px 0px rgba(0, 0, 0, 0.13);
+    box-shadow: -2px -2px 28px 0px rgba(0, 0, 0, 0.13);
+}
+
+.plus-button {
+    position: fixed;
+    left: 91.53%;
+    right: 2.99%;
+    top: 87.67%;
+    bottom: 3.56%;
+
+    background: #AAEAFE;
+
+    border-radius: 50%;
+    width: 79px;
+    height: 79px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+}
+
+.plus-button::before,
+.plus-button::after {
+    content: '';
+    width: 10px;
+    height: 50px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.plus-button::after {
+    position: absolute;
+    transform: rotate(90deg);
+}
+
+.modal-container {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    width: 70%;
+    height: 70%;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.x-button {
+    cursor: pointer;
+}
+
+.show {
+    display: flex;
+}

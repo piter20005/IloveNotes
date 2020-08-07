@@ -1,0 +1,11 @@
+{
+  "name": "ilovenotes",
+  "version": "1.0.0",
+  "description": "An app that lets you add, edit and share your notes on any device",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Piotr Stepien",
+  "license": "ISC"
+}
