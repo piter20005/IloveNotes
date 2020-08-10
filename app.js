@@ -37,7 +37,7 @@ addButton.addEventListener('click', (e) => {
     e.preventDefault()
     const editorData = editor.getData();
     addToFirebase(editorData, titleInpute, "piter");
-    console.log(editorData)
+    // console.log(editorData)
 })
 
 function showAndHideModal(show) {
@@ -53,13 +53,12 @@ function showAndHideModal(show) {
 function addNote(note, title) {
     const gridElement = document.getElementsByClassName('notes-grid')[0];
     const newDiv = document.createElement('div');
-    newDiv.innerHTML = note;
+    newDiv.innerHTML = `<h1>${title}</h1>` + note;
     newDiv.classList.add('notes');
     gridElement.appendChild(newDiv);
 }
 
 function addToFirebase(note, title, username) {
-    console.log(title)
     let ref = firebase.database().ref(`users/${username}`)
     ref.push({
         [title]: {
@@ -68,7 +67,10 @@ function addToFirebase(note, title, username) {
     }).then((snap) => {
         const key = snap.key;
         firebase.database().ref(`users/${username}/${key}`).on("value", snapshot => {
-            console.log(snapshot.val());
+            let snapshotTitle = snapshot.val();
+            let finalTitle = Object.keys(snapshotTitle)[0]
+            let finalNote = snapshot.child(`${title}/note`).val();
+            addNote(finalNote, finalTitle);
         })
     })
 }
