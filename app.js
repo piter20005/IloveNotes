@@ -16,20 +16,29 @@ firebase.analytics();
 var database = firebase.database();
 
 //CKEditor initialization
+let editor;
 ClassicEditor
     .create(document.querySelector('#editor'))
+    .then(newEditor => {
+        editor = newEditor;
+    })
     .catch(error => {
         console.error(error);
     });
 
 const plusButton = document.getElementsByClassName('plus-button')[0];
 const xButton = document.getElementsByClassName('x-button')[0];
-const addButton = document.getElementsByClassName('add-note')[0];
-
+const addButton = document.getElementsByClassName('add-button')[0];
 
 plusButton.addEventListener('click', () => showAndHideModal(true));
 xButton.addEventListener('click', () => showAndHideModal(false));
-addButton.addEventListener('click', addNote);
+addButton.addEventListener('click', (e) => {
+    const titleInpute = document.getElementById('title').value;
+    e.preventDefault()
+    const editorData = editor.getData();
+    addToFirebase(editorData, titleInpute, "piter");
+    console.log(editorData)
+})
 
 function showAndHideModal(show) {
     const modalContainer = document.getElementsByClassName('modal-container')[0];
@@ -41,14 +50,25 @@ function showAndHideModal(show) {
 
 }
 
-function addNote() {
-    let inputValue = document.getElementById('test').value;
+function addNote(note, title) {
     const gridElement = document.getElementsByClassName('notes-grid')[0];
     const newDiv = document.createElement('div');
-    newDiv.innerHTML = `<p>${inputValue}</p>`;
+    newDiv.innerHTML = note;
     newDiv.classList.add('notes');
-    firebase.database().ref('users/test').set({
-        name: inputValue
-    })
     gridElement.appendChild(newDiv);
+}
+
+function addToFirebase(note, title, username) {
+    console.log(title)
+    let ref = firebase.database().ref(`users/${username}`)
+    ref.push({
+        [title]: {
+            note: note
+        }
+    }).then((snap) => {
+        const key = snap.key;
+        firebase.database().ref(`users/${username}/${key}`).on("value", snapshot => {
+            console.log(snapshot.val());
+        })
+    })
 }
